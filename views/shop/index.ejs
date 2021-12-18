@@ -1,0 +1,32 @@
+<%- include('../includes/header.ejs') %>
+<body>
+  <%- include('../includes/navigation.ejs') %>
+  <main>
+    <% if(prods.length > 0) { %>
+    <div class="container mt-5">
+      <div class="row">
+        <% for (let product of prods) {%>
+        <div class="col-md-4 col-lg-4 mb-5">
+          <div class="card">
+            <img src="<%= product.imageUrl %>" alt="<%= product.title %>" />
+            <div class="card-body">
+              <h3 class="card-title"><%= product.title %></h3>
+              <p class="card-subtitle text-muted">$<%= product.price %></p>
+              <p class="card-text"><%= product.description %></p>
+              <a href="/products/<%= product.id  %> " class="btn btn-info mb-2"
+                >Details</a
+              >
+              <!-- add to cart  | this {product: product} added because of the loop-->
+              <%- include('../includes/add-to-cart.ejs', {product: product}) %>
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <% } else { %>
+    <h1>No product found....</h1>
+    <% } %>
+  </main>
+  <%- include('../includes/footer.ejs') %>
+</body>

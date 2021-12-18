@@ -1,0 +1,78 @@
+<%- include('../includes/header.ejs') %>
+<body>
+  <%- include('../includes/navigation.ejs') %>
+  <main>
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-6 col-lg-6 mx-auto">
+          <div class="card bg-light">
+            <div class="card-body">
+              <!-- check the url param if editing is true or false and perform the necessary action -->
+              <form
+                action="/admin/<% if(editing) { %>edit-product<% } else { %>add-product<% } %>"
+                method="POST"
+                class="product-form"
+              >
+                <div class="mb-3">
+                  <label for="title" class="lead">Title</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="title"
+                    id="title"
+                    value="<% if(editing) { %><%= product.title %><% } %>"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="imageUrl" class="lead">Image URL</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="imageUrl"
+                    id="imageUrl"
+                    value="<% if(editing) { %><%= product.imageUrl  %><% } %>"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="price" class="lead">Price</label>
+                  <input
+                    class="form-control"
+                    type="number"
+                    name="price"
+                    id="price"
+                    value="<% if(editing) { %><%= product.price %><% } %>"
+                    step="0.01"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="description" class="lead">Description</label>
+                  <textarea
+                    class="form-control"
+                    type="text"
+                    name="description"
+                    id="description"
+                  >
+<% if(editing) { %><%= product.description %><% } %></textarea
+                  >
+                </div>
+                <% if(editing) { %>
+                <input
+                  type="hidden"
+                  name="productId"
+                  value="<%= product.id %>"
+                />
+                <% } %>
+                <button type="submit" class="form-control btn btn-primary">
+                  <!-- check param equals editing -->
+                  <% if(editing) { %> Update Product <% } else { %> Add Product
+                  <% } %>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('../includes/footer.ejs') %>
+</body>

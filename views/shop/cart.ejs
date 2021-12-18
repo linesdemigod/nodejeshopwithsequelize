@@ -1,0 +1,38 @@
+<%- include('../includes/header.ejs') %>
+<body>
+  <%- include('../includes/navigation.ejs') %>
+  <main>
+    <div class="container py-5">
+      <div class="row">
+        <!-- loop to get the cart -->
+        <% if(products.length > 0) {%>
+        <div class="col-md-8 col-lg-8 mx-auto">
+          <ul class="list-unstyled">
+            <% products.forEach(prod => { %>
+            <li>
+              <h4><%= prod.title %></h4>
+
+              <h6>Quantity: <%= prod.cartItem.quantity %></h6>
+              <form action="/cart-delete-item" method="post">
+                <input type="hidden" name="productId" value="<%= prod.id %>" />
+                <button type="submit" class="btn btn-danger mt-2">
+                  Delete
+                </button>
+              </form>
+            </li>
+            <% }); %>
+          </ul>
+          <!-- form to create order -->
+          <form action="/create-order" method="POST">
+            <button type="submit" class="btn btn-secondary">Order Now!</button>
+          </form>
+          <% } else { %>
+          <h1>No Product in the cart!</h1>
+        </div>
+        <% } %>
+      </div>
+    </div>
+  </main>
+
+  <%- include('../includes/footer.ejs') %>
+</body>
